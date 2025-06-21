@@ -5,4 +5,4 @@ __pycache__/
 *.sqlite3
 migrations/
 Pipfile.lock
-*.json
+challenge-4-lateshow.postman_collection.json
