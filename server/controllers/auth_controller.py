@@ -22,7 +22,7 @@ class Registration(Resource):
         data = request.get_json()
 
         new_person = User(username=data.get('username'))
-        new_person.password = data.get('password')  # Uses @password.setter
+        new_person.password = data.get('password')
 
         db.session.add(new_person)
         db.session.commit()
