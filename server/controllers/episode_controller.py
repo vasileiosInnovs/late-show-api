@@ -20,7 +20,7 @@ class Episodes(Resource):
 api.add_resource(Episodes, '/episodes')
     
 class EpisodesByID(Resource):
-    def get(self, id):
+    def delete(self, id):
         episode = Episode.query.filter(Episode.id == id).first()
 
         db.session.delete(episode)
