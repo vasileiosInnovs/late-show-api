@@ -1,27 +1,31 @@
 from . import db
-from sqlalchemy.ext.hybrid import hybrid_property
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True)
-    _password_harsh = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return f'<ID {self.id} | User {self.username}>'
-    
-    @hybrid_property
-    def password_hash(self):
-        return self._password_hash
-    
-    @password_hash.setter
-    def password_hash(self, password):
-        self._password_harsh = self.simple_hash(password)
 
-    def authenticate(self, password):
-        return self.simple_hash(password) == self.password_hash
-    
-    @staticmethod
-    def simple_hash(input):
-        return sum(bytearray(input, encoding='utf-8'))
+    # Password setter (hashes the password)
+    @property
+    def password(self):
+        raise AttributeError("Password is write-only.")
+
+    @password.setter
+    def password(self, raw_password):
+        self._password_hash = generate_password_hash(raw_password)
+
+    # Check if password is correct
+    def authenticate(self, raw_password):
+        return check_password_hash(self._password_hash, raw_password)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username
+        }
