@@ -1,14 +1,19 @@
-from flask import Flask, make_response, request, jsonify, session
+from flask import Flask, make_response, request, jsonify
 from flask_restful import Resource
 from werkzeug.security import check_password_hash
-from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended import (
+    JWTManager, create_access_token, get_jwt_identity, jwt_required
+)
 from . import api
+from dotenv import load_dotenv
+import os
 
 from models import db, User
 
-app = Flask(__name__)
+load_dotenv()
 
-app.config['JWT_SECRET_KEY'] = 'super-secret-key'
+app = Flask(__name__)
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
 jwt = JWTManager(app)
 
@@ -16,20 +21,13 @@ class Registration(Resource):
     def post(self):
         data = request.get_json()
 
-        new_person = User(
-            username=data.get('username')
-        )
-        new_person.password = data.get('password')
+        new_person = User(username=data.get('username'))
+        new_person.password = data.get('password')  # Uses @password.setter
 
         db.session.add(new_person)
         db.session.commit()
 
-        new_person_dict = new_person.to_dict()
-
-        return make_response(
-            jsonify(new_person_dict),
-            201
-            )
+        return make_response(jsonify(new_person.to_dict()), 201)
 
 api.add_resource(Registration, '/register')
 
