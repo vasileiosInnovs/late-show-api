@@ -1,10 +1,12 @@
 from flask import jsonify, make_response, request, session
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from models import db, Appearance, User
 from . import api
 
 class Appearances(Resource):
+    @jwt_required()
     def post(self):
         data = request.get_json()
 
