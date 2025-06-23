@@ -1,6 +1,1 @@
-from flask import Flask, app
-from flask_jwt_extended import JWTManager
-
-app = Flask(__name__)
-
-jwt = JWTManager(app)
+SQLALCHEMY_DATABASE_URI = "postgresql://db_admin_992p_user:xCvmMJDGP9Xckz3vqzcgSwNNCXONT5JN@dpg-d1akb2emcj7s73fkpoo0-a.oregon-postgres.render.com/late_show_db"

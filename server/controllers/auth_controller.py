@@ -4,16 +4,16 @@ from werkzeug.security import check_password_hash
 from flask_jwt_extended import (
     JWTManager, create_access_token, get_jwt_identity, jwt_required
 )
-from . import api
+from app import api
+from models import db
 from dotenv import load_dotenv
 import os
 
-from models import db, User
+from models.user import User
 
 load_dotenv()
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
 jwt = JWTManager(app)
 
@@ -29,8 +29,6 @@ class Registration(Resource):
 
         return make_response(jsonify(new_person.to_dict()), 201)
 
-api.add_resource(Registration, '/register')
-
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -43,8 +41,6 @@ class Login(Resource):
         access_token = create_access_token(identity=user.id)
         return {"access_token": access_token}, 200
 
-api.add_resource(Login, '/login')
-
 class CheckSession(Resource):
     @jwt_required()
     def get(self):
@@ -56,4 +52,6 @@ class CheckSession(Resource):
         else:
             return {'message': '401: Not Authorized'}, 401
 
+api.add_resource(Registration, '/register')
+api.add_resource(Login, '/login')
 api.add_resource(CheckSession, '/check_session')

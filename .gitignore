@@ -6,3 +6,4 @@ __pycache__/
 migrations/
 Pipfile.lock
 challenge-4-lateshow.postman_collection.json
+config.py

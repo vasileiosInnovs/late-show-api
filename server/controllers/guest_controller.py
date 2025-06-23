@@ -1,8 +1,8 @@
 from flask import jsonify, make_response
 from flask_restful import Resource
 
-from models import Guest
-from . import api
+from models.guest import Guest
+from app import api
 
 class Guests(Resource):
     def get(self):

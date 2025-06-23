@@ -1,8 +1,10 @@
 from flask import jsonify, make_response, session
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
-from . import api
+from app import api
+from models import db
 
-from models import db, Episode, User
+from models.episode import Episode
 
 class Episodes(Resource):
     def get(self):
@@ -20,6 +22,7 @@ class Episodes(Resource):
 api.add_resource(Episodes, '/episodes')
     
 class EpisodesByID(Resource):
+    @jwt_required()
     def delete(self, id):
         episode = Episode.query.filter(Episode.id == id).first()
 
@@ -37,13 +40,4 @@ class EpisodesByID(Resource):
 
         return response
 
-class CheckSession(Resource):
-    def get(self):
-        user = User.query.filter_by(id=session.get('user_id')).first()
-        if user:
-            return user.to_dict()
-        else:
-            return {'message': '401: Not Authorized'}, 401
-
-api.add_resource(CheckSession, '/check_session')
 api.add_resource(EpisodesByID, '/episodes/<int:id>')

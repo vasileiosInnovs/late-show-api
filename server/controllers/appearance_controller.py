@@ -2,8 +2,9 @@ from flask import jsonify, make_response, request, session
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from models import db, Appearance, User
-from . import api
+from models.appearance import Appearance
+from app import api
+from models import db
 
 class Appearances(Resource):
     @jwt_required()
@@ -27,14 +28,5 @@ class Appearances(Resource):
         )
 
         return response
-    
-class CheckSession(Resource):
-    def get(self):
-        user = User.query.filter_by(id=session.get('user_id')).first()
-        if user:
-            return user.to_dict()
-        else:
-            return {'message': '401: Not Authorized'}, 401
-
-api.add_resource(CheckSession, '/check_session')    
+   
 api.add_resource(Appearances, '/appearances')
