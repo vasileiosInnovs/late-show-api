@@ -14,10 +14,10 @@
           "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
         },
         "url": {
-          "raw": "http://localhost:5000/register",
+          "raw": "http://localhost:5555/register",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "5000",
+          "port": "5555",
           "path": ["register"]
         }
       }
@@ -32,10 +32,10 @@
           "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
         },
         "url": {
-          "raw": "http://localhost:5000/login",
+          "raw": "http://localhost:5555/login",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "5000",
+          "port": "5555",
           "path": ["login"]
         }
       },
@@ -63,10 +63,10 @@
           }
         ],
         "url": {
-          "raw": "http://localhost:5000/check_session",
+          "raw": "http://localhost:5555/check_session",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "5000",
+          "port": "5555",
           "path": ["check_session"]
         }
       }
@@ -84,10 +84,10 @@
           "raw": "{\n    \"rating\": 9.5,\n    \"guest_id\": 1,\n    \"episode_id\": 1\n}"
         },
         "url": {
-          "raw": "http://localhost:5000/appearances",
+          "raw": "http://localhost:5555/appearances",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "5000",
+          "port": "5555",
           "path": ["appearances"]
         }
       }
@@ -100,10 +100,10 @@
           {"key": "Authorization", "value": "Bearer {{jwt}}"}
         ],
         "url": {
-          "raw": "http://localhost:5000/episodes/1",
+          "raw": "http://localhost:5555/episodes/1",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "5000",
+          "port": "5555",
           "path": ["episodes", "1"]
         }
       }
