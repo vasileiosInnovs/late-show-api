@@ -1,10 +1,10 @@
 from flask import jsonify, make_response, session
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
-from app import api
-from models import db
+from server.app import api
+from server.models import db
 
-from models.episode import Episode
+from server.models.episode import Episode
 
 class Episodes(Resource):
     def get(self):

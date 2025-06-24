@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
-from models import db
+from server.models import db
 
 load_dotenv()
 
@@ -25,9 +25,9 @@ def create_app():
     migrate.init_app(app, db)
     api.init_app(app)
 
-    from controllers.auth_controller import Registration, Login, CheckSession
-    from controllers.appearance_controller import Appearances
-    from controllers.episode_controller import EpisodesByID
+    from server.controllers.auth_controller import Registration, Login, CheckSession
+    from server.controllers.appearance_controller import Appearances
+    from server.controllers.episode_controller import EpisodesByID
 
     api.add_resource(Registration, '/register')
     api.add_resource(Login, '/login')

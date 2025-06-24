@@ -4,12 +4,12 @@ from werkzeug.security import check_password_hash
 from flask_jwt_extended import (
     JWTManager, create_access_token, get_jwt_identity, jwt_required
 )
-from app import api
-from models import db
+from server.app import api
+from server.models import db
 from dotenv import load_dotenv
 import os
 
-from models.user import User
+from server.models.user import User
 
 load_dotenv()
 

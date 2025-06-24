@@ -2,9 +2,9 @@ from flask import jsonify, make_response, request, session
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from models.appearance import Appearance
-from app import api
-from models import db
+from server.models.appearance import Appearance
+from server.app import api
+from server.models import db
 
 class Appearances(Resource):
     @jwt_required()
