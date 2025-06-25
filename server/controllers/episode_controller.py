@@ -23,12 +23,12 @@ api.add_resource(Episodes, '/episodes')
     
 class EpisodesByID(Resource):
     def get(self, id):
-        episodes = Episode.query.get(id)
+        episode = Episode.query.filter_by(id=id).first()
 
-        episodes_dict = [episode.to_dict() for episode in episodes]
+        episode_dict = episode.to_dict()
 
         response = make_response(
-            jsonify(episodes_dict),
+            jsonify(episode_dict),
             200
         )
 
@@ -37,6 +37,9 @@ class EpisodesByID(Resource):
     @jwt_required()
     def delete(self, id):
         episode = Episode.query.filter(Episode.id == id).first()
+
+        if not episode:
+            return make_response(jsonify({"error": "Episode not found"}), 404)
 
         db.session.delete(episode)
         db.session.commit()

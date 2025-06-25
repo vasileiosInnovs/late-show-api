@@ -3,12 +3,17 @@ from . import db
 from sqlalchemy.orm import validates
 
 class Appearance(db.Model, SerializerMixin):
-    __tablename__ = 'appearance'
+    __tablename__ = 'appearances'
+
+    serialize_rules = ('-episode.appearances', '-guest.appearances',)
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
-    guest_id = db.Column(db.Integer, db.ForeignKey('guests.id'))
-    episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id'))
+    guest_id = db.Column(db.Integer, db.ForeignKey('guests.id', ondelete="CASCADE"))
+    episode_id = db.Column(db.Integer, db.ForeignKey('episodes.id', ondelete="CASCADE"))
+
+    episode = db.relationship("Episode", back_populates='appearances')
+    guest = db.relationship('Guest', back_populates='appearances')
 
     @validates('rating')
     def validates_rating(self, key, value):
