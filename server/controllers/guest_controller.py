@@ -2,7 +2,7 @@ from flask import jsonify, make_response
 from flask_restful import Resource
 
 from models.guest import Guest
-from server.app import api
+from app import api
 
 class Guests(Resource):
     def get(self):

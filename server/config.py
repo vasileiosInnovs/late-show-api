@@ -1,1 +1,1 @@
-SQLALCHEMY_DATABASE_URI = "postgresql://db_admin_992p_user:xCvmMJDGP9Xckz3vqzcgSwNNCXONT5JN@dpg-d1akb2emcj7s73fkpoo0-a.oregon-postgres.render.com/late_show_db"
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:$$$1234Augu^^^@localhost:5432/late_show_db'

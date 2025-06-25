@@ -1,7 +1,8 @@
+from sqlalchemy_serializer import SerializerMixin
 from . import db
 from sqlalchemy.orm import validates
 
-class Appearance(db.Model):
+class Appearance(db.Model, SerializerMixin):
     __tablename__ = 'appearance'
 
     id = db.Column(db.Integer, primary_key=True)

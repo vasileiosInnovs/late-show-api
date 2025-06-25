@@ -50,6 +50,8 @@ python seed.py
 ### 3. Start the server
 
 ```bash
+export FLASK_APP=server.app:create_app
+export FLASK_ENV=development
 flask run
 # or with gunicorn
 gunicorn "server.app:create_app()"
